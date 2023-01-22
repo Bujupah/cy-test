@@ -5,12 +5,10 @@ module.exports = defineConfig({
   reporterOptions: {
     reportDir: "results",
     overwrite: false,
-    html: false,
-    json: true,
+    html: true,
+    json: false,
   },
   e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
+    setupNodeEvents(on, config) {},
   },
 });

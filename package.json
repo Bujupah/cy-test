@@ -4,17 +4,19 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "cypress": "^12.3.0"
+    "cypress": "^12.3.0",
+    "mocha": "^10.2.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.2.2",
+    "mochawesome-report-generator": "^6.2.0"
   },
   "scripts": {
     "cy:open": "cypress open",
-    "cy:run": "cypress run --reporter mochawesome",
+    "cy:run": "cypress run",
     "cy:report": "mochawesome-merge \"results/*.json\" > mochawesome.json && marge mochawesome.json",
     "cy:report:share": "node report.js"
   },
   "dependencies": {
-    "mochawesome": "^7.1.3",
-    "mochawesome-merge": "^4.2.2",
-    "mochawesome-report-generator": "^6.2.0"
+    "cypress-mochawesome-reporter": "^3.2.3"
   }
 }
