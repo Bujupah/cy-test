@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Sharing reports..."
-npm run cy:share
+npm run cy:report:share
 
 echo "Listing files..."
 ls -la

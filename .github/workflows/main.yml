@@ -3,6 +3,7 @@ on: [push]
 jobs:
   cypress-generate-report:
     runs-on: ubuntu-latest
+    name: Generate Cypress Report
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -53,6 +54,9 @@ jobs:
 
     - name: Delete unneeded files
       run: sh ./scripts/keep-reports-in-repository.sh
+    
+    - name: Prepare website
+      run: sh ./scripts/prepare-gh-page.sh
 
     - name: List files
       run: ls -la
@@ -72,4 +76,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Cypress Generate Report
-        run: sh ./scripts/generate-report.sh
+        run: sh ./scripts/share-report.sh
