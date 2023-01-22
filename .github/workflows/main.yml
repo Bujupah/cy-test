@@ -14,15 +14,8 @@ jobs:
         run: npm run cy:report
         env:
           RECIPEINTS_LIST: ${{ secrets.RECIPEINTS_LIST }}
-      # - name: Deploy HTML Results
-        # uses: JamesIves/github-pages-deploy-action@3.8.0
-        # with:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #   BRANCH: gh-pages
-        #   FOLDER: mochawesome-report
-        #   REPOSITORY: bujupah/cy-test
-  cypress-report:
-    runs-on: ubuntu-latest
+   runs-on: ubuntu-latest
+    name: Deploy HTML Results
     needs: cypress-run
     steps:
     - name: List files
@@ -38,4 +31,4 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: mochawesome-report
+        FOLDER: results
