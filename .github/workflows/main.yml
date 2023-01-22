@@ -38,17 +38,22 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots/
   
-  cypress-report:  
+  publish-report:  
     runs-on: ubuntu-latest
     name: Deploy on Github Pages
     needs: cypress-run
     steps:
-    
+    - name: Checkout
+      uses: actions/checkout@v3
+      
     - name: Download Test Results
       uses: actions/download-artifact@v3
       with:
         name: test-results
-    
+
+    - name: Delete unneeded files
+      run: sh ./scripts/keep-reports-in-repository.sh
+
     - name: List files
       run: ls -la
 
@@ -58,7 +63,6 @@ jobs:
         token: ${{ secrets.ACCESS_TOKEN }}
         branch: gh-pages
         folder: .
-        repository-name: bujupah/cy-test
 
   cypress-share:  
     runs-on: ubuntu-latest
