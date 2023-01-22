@@ -13,7 +13,7 @@
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "cy:report": "mochawesome-merge \"results/*.json\" > mochawesome.json && marge mochawesome.json",
+    "cy:report": "mochawesome-merge results/*.json > mochawesome.json && marge mochawesome.json",
     "cy:report:share": "node report.js"
   },
   "dependencies": {
