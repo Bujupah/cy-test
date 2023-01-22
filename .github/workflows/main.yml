@@ -12,12 +12,10 @@ jobs:
         run: ls results -la
       - name: Cypress Generate Report
         run: npm run cy:report
-      - name: Save Test Results
-        run: mv cypress/reports/mochawesome-report cypress/reports/test-results
       - name: Archive Test Results
         uses: actions/upload-artifact@v2
         with:
-          name: test-results
+          name: results
           path: results
   
   cypress-report:  
