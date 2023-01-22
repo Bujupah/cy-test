@@ -1,7 +1,7 @@
 name: Cypress Tests
 on: [push]
 jobs:
-  cypress-run:
+  cypress-generate-report:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -38,10 +38,10 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots/
   
-  publish-report:  
+  cypress-publish-report:  
     runs-on: ubuntu-latest
     name: Deploy on Github Pages
-    needs: cypress-run
+    needs: cypress-generate-report
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -64,10 +64,10 @@ jobs:
         branch: gh-pages
         folder: .
 
-  cypress-share:  
+  cypress-share-report:  
     runs-on: ubuntu-latest
     name: Sharing via Email
-    needs: cypress-report
+    needs: cypress-publish-report
     steps:
       - name: Checkout
         uses: actions/checkout@v3
