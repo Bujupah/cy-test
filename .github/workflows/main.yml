@@ -40,7 +40,7 @@ jobs:
   
   cypress-report:  
     runs-on: ubuntu-latest
-    name: Deploy HTML Results
+    name: Deploy on Github Pages
     needs: cypress-run
     steps:
     
@@ -58,10 +58,11 @@ jobs:
         token: ${{ secrets.ACCESS_TOKEN }}
         branch: gh-pages
         folder: .
+        repository-name: bujupah/cy-test
 
   cypress-share:  
     runs-on: ubuntu-latest
-    name: Sharing results
+    name: Sharing via Email
     needs: cypress-report
     steps:
       - name: Checkout
