@@ -9,7 +9,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5.0.5
       - name: List files
-        run: ls -la
+        run: ls results -la
       - name: Cypress Generate Report
         run: npm run cy:report
         env:
@@ -23,6 +23,7 @@ jobs:
         #   REPOSITORY: bujupah/cy-test
   cypress-report:
     runs-on: ubuntu-latest
+    needs: cypress-run
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
