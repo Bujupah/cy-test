@@ -7,16 +7,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Cypress run
         uses: cypress-io/github-action@v5.0.5
 
       # Generate a report from the test results
       - name: Cypress Generate Report
-        run: sh ./scripts/generate-report.sh
+        run: npm run cy:report
 
       # Save test results to a directory so we can upload them as an artifact
-      - name: Save Test Results
+      - name: Save mochawesome-report in test-results
         run: mv mochawesome-report test-results
+        
+      - name: Save mochawesome
+        run: mv mochawesome.json test-results/data.json
       
       # Upload test results to GitHub as artifacts
       - name: Archive Test Results
@@ -52,11 +56,8 @@ jobs:
       with:
         name: test-results
 
-    - name: Delete unneeded files
-      run: sh ./scripts/keep-reports-in-repository.sh
-    
     - name: Prepare website
-      run: sh ./scripts/prepare-gh-page.sh
+      run: mv mochawesome.html index.html
 
     - name: List files
       run: ls -la
@@ -75,5 +76,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        
       - name: Cypress Generate Report
         run: sh ./scripts/share-report.sh
