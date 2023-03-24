@@ -59,9 +59,6 @@ jobs:
     - name: Prepare website
       run: mv mochawesome.html index.html
 
-    - name: List files
-      run: ls -la
-
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
@@ -76,6 +73,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
-      - name: Cypress Generate Report
-        run: sh ./scripts/share-report.sh
+      
+      - name: Download Test Results
+        uses: actions/download-artifact@v3
+        with:
+          name: test-results
+      
+      # Run the email script to send the report
+      - name: Send Email
+        env:
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
+        run: |
+          echo "Subject: Test Results" | cat - "${{ github.workspace }}/test-results" | ssmtp $EMAIL_RECIPIENT
+        working-directory: ${{ github.workspace }}
