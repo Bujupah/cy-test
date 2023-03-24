@@ -94,10 +94,11 @@ jobs:
       - name: Send Email
         env:
           SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT: 587
           SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
         run: |
           zip -r result.zip *
-          echo "Subject: Nightly test automation" | ssmtp -A result.zip $EMAIL_RECIPIENT
+          echo "Subject: Nightly test automation" | ssmtp -t -v -S smtp-use-starttls -S smtp-auth=login -S smtp=$SMTP_SERVER:$SMTP_PORT -au $SMTP_USERNAME -ap $SMTP_PASSWORD -A result.zip $EMAIL_RECIPIENT
         working-directory: ${{ github.workspace }}
