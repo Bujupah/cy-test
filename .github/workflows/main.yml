@@ -87,19 +87,22 @@ jobs:
       - name: Listing folder
         run: ls -la
 
-      - name: Install ssmtp
-        run: sudo apt-get update && sudo apt-get install -y ssmtp zip
-      
-      # Run the email script to send the report
-      - name: Send Email
+      - name: Send mailer
         env:
           SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
           SMTP_PORT: 587
           SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
-        run: |
-          zip -r result.zip *
-          echo "To: $EMAIL_RECIPIENT
-          Subject: Nightly test automation" | ssmtp -t -v -S smtp-use-starttls -S smtp-auth=login -S smtp=$SMTP_SERVER:$SMTP_PORT -au $SMTP_USERNAME -ap $SMTP_PASSWORD -A result.zip $EMAIL_RECIPIENT
-        working-directory: ${{ github.workspace }}
+        uses: devellany/send-mail@v1.0.2
+        with:
+          host: $SMTP_SERVER
+          port: 587
+          account: $SMTP_USERNAME
+          password: $SMTP_PASSWORD
+          sender: 'Cypress Test'
+          from: $SMTP_USERNAME
+          to: $EMAIL_RECIPIENT
+          subject: 'Cypress Test Report'
+          body: 'Please view the attached report.'
+          attachments: '[{"path": "result.zip"}]'
