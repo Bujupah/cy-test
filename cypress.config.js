@@ -9,6 +9,7 @@ module.exports = defineConfig({
     json: true,
   },
   e2e: {
+    experimentalStudio: true,
     setupNodeEvents(on, config) {},
   },
 });
