@@ -81,6 +81,9 @@ jobs:
         with:
           name: test-results
       
+      - name: Rename mochawesome.html to index.html
+        run: mv mochawesome.html index.html
+
       - name: Listing folder
         run: ls -la
 
@@ -95,5 +98,5 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
         run: |
-          echo "Subject: Test Results" | cat - "${{ github.workspace }}/test-results" | ssmtp $EMAIL_RECIPIENT
+          echo "Subject: Test Results" | cat - "${{ github.workspace }}" | ssmtp $EMAIL_RECIPIENT
         working-directory: ${{ github.workspace }}
