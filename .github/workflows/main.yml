@@ -102,5 +102,5 @@ jobs:
           from: ${{ secrets.SMTP_USERNAME }}
           to: ${{ secrets.EMAIL_RECIPIENT }}
           subject: 'Cypress Test Report'
-          body: 'Please view the attached report.'
-          attachments: '[{"path": "result.zip"}]'
+          body: 'Automation is successfully done.'
+          # attachments: '[{"path": "result.zip"}]'
