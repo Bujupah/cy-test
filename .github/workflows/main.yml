@@ -79,7 +79,10 @@ jobs:
         with:
           name: test-results
       
-      # Run the email script to send the report
+      - name: Install ssmtp
+        run: sudo apt-get update && sudo apt-get install -y ssmtp
+
+        # Run the email script to send the report
       - name: Send Email
         env:
           SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
