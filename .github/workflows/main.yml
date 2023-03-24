@@ -76,21 +76,18 @@ jobs:
     name: Sharing via Email
     needs: cypress-publish-report
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      
       - name: Download Test Results
         uses: actions/download-artifact@v3
         with:
           name: test-results
       
-      - name: Install ssmtp
-        run: sudo apt-get update && sudo apt-get install -y ssmtp
-      
       - name: Listing folder
         run: ls -la
 
-        # Run the email script to send the report
+      - name: Install ssmtp
+        run: sudo apt-get update && sudo apt-get install -y ssmtp
+      
+      # Run the email script to send the report
       - name: Send Email
         env:
           SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
