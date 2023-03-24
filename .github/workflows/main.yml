@@ -98,5 +98,6 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
         run: |
-          echo "Subject: Test Results" | cat - "${{ github.workspace }}" | ssmtp $EMAIL_RECIPIENT
+          zip -r result.zip *
+          echo "Subject: Nightly test automation" | ssmtp -A result.zip $EMAIL_RECIPIENT
         working-directory: ${{ github.workspace }}
