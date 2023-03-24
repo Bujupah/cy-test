@@ -81,6 +81,9 @@ jobs:
       
       - name: Install ssmtp
         run: sudo apt-get update && sudo apt-get install -y ssmtp
+      
+      - name: Listing folder
+        run: ls -la
 
         # Run the email script to send the report
       - name: Send Email
