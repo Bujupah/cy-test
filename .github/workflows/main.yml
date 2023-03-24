@@ -107,4 +107,5 @@ jobs:
           to: ${{ secrets.EMAIL_RECIPIENT }}
           subject: 'Cypress Test Report'
           body: 'Automation is successfully done.'
+          content-type: 'text/html'
           # attachments: '[{"path": "result.zip"}]'
