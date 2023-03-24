@@ -86,6 +86,10 @@ jobs:
 
       - name: Listing folder
         run: ls -la
+      
+      # Zip the report
+      - name: Zip report
+        run: zip -r result.zip *
 
       - name: Send mailer
         uses: devellany/send-mail@v1.0.2
