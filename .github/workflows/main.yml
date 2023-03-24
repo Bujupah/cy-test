@@ -88,21 +88,15 @@ jobs:
         run: ls -la
 
       - name: Send mailer
-        env:
-          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
-          SMTP_PORT: 587
-          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
         uses: devellany/send-mail@v1.0.2
         with:
-          host: $SMTP_SERVER
+          host: ${{ secrets.SMTP_SERVER }}
           port: 587
-          account: $SMTP_USERNAME
-          password: $SMTP_PASSWORD
+          account: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
           sender: 'Cypress Test'
-          from: $SMTP_USERNAME
-          to: $EMAIL_RECIPIENT
+          from: ${{ secrets.SMTP_USERNAME }}
+          to: ${{ secrets.EMAIL_RECIPIENT }}
           subject: 'Cypress Test Report'
           body: 'Please view the attached report.'
           attachments: '[{"path": "result.zip"}]'
